@@ -13,6 +13,16 @@ namespace Savillis.Domain.Bookings.Events {
                 public string SubmittedBy { get; init; }
                 public LocalDateTime SubmittedAt { get; init; }
             }
+            
+            public class BookingCancelled {
+                public string BookingId { get; set; }
+                public string AgentId { get; set; } 
+                public string PropertyId { get; set; }
+                public LocalDateTime FromHour { get; set; }
+                public LocalDateTime ToHour { get; set; }
+                public string SubmittedBy { get; init; }
+                public LocalDateTime SubmittedAt { get; init; }
+            }
 
             public record BookingDenied(string PaymentId, string Reason, LocalDateTime DeniedAt);
         }

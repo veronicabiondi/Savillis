@@ -15,10 +15,10 @@ namespace Savillis.Domain.DomainService
 
     public class DomainService : IDomainService
     {
-        private readonly IAgentCalendar _agentCalendar;
-        private readonly IPropertyCalendar _propertyCalendar;
+        private readonly IAgentCalendarService _agentCalendar;
+        private readonly IPropertyCalendarService _propertyCalendar;
 
-        public DomainService(IAgentCalendar agentCalendar, IPropertyCalendar propertyCalendar)
+        public DomainService(IAgentCalendarService agentCalendar, IPropertyCalendarService propertyCalendar)
         {
             _agentCalendar = agentCalendar;
             _propertyCalendar = propertyCalendar;

@@ -1,5 +1,3 @@
-using System.Threading;
-using System.Threading.Tasks;
 using Eventuous;
 using Microsoft.AspNetCore.Mvc;
 using Savillis.Domain.Bookings;
