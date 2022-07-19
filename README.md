@@ -1,4 +1,5 @@
 Savills tech test
+
 The problem
 Your task is to design a system that allows users of the Savills website to book property viewings. While on a property page, the user will be able to choose an available time slot from a calendar. Once they choose a slot and put in their personal details, they click a button and they'll send a request to the system to book an appointment. Some notes about the system:
 
