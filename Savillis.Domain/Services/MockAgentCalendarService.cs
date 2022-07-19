@@ -1,26 +1,34 @@
+using System.Collections.Concurrent;
+using Eventuous;
 using NodaTime;
 
 namespace Savillis.Domain.Services
 {
-    
     public class MockAgentCalendarService : IAgentCalendarService
     {
-        private static List<(LocalDateTime, LocalDateTime, string)> AvailableDates =
-            new List<(LocalDateTime, LocalDateTime, string)>
-            {
-                (new LocalDateTime(2022, 10, 1, 0, 1), new LocalDateTime(2022, 10, 1, 12, 1), "Agent-A"),
-                (new LocalDateTime(2022, 10, 1, 13, 1), new LocalDateTime(2022, 10, 1, 15, 1), "Agent-B"),
-                (new LocalDateTime(2022, 10, 1, 16, 1), new LocalDateTime(2022, 10, 24, 23, 1), "Agent-C")
-            };
-            
-        public Guid CreateAppointment(string agentId, LocalDateTime startTime, LocalDateTime endTime)
+        private static readonly ConcurrentDictionary<(LocalDateTime, LocalDateTime), bool> _dbSet = new();
+
+        public MockAgentCalendarService()
         {
-            AvailableDates.Add((startTime, endTime, agentId));
-            //Assume Successful creation
-            return Guid.NewGuid();
+            _dbSet.TryAdd((new LocalDateTime(2022, 10, 3, 8, 0), new LocalDateTime(2022, 10, 3, 10, 0)), false);
+            _dbSet.TryAdd((new LocalDateTime(2022, 10, 3, 12, 4), new LocalDateTime(2022, 10, 3, 14, 0)), false);
+            _dbSet.TryAdd((new LocalDateTime(2022, 10, 3, 16, 4), new LocalDateTime(2022, 10, 3, 18, 0)), false);
         }
 
-        public IEnumerable<(LocalDateTime, LocalDateTime)> GetAppointments(string agentId, LocalDateTime startTime, LocalDateTime endTime) => 
-            AvailableDates.Select(x => (x.Item1, x.Item2));
+        public Guid CreateAppointment(string agentId, LocalDateTime startTime, LocalDateTime endTime)
+        {
+            var result = _dbSet.TryAdd((startTime, endTime), true);
+            //Assume Successful creation
+            return result ? Guid.NewGuid() : throw new DomainException("Failed To Create an appointment");
+        }
+
+        public IEnumerable<(LocalDateTime, LocalDateTime)> GetAppointments(string agentId, LocalDateTime startTime,
+            LocalDateTime endTime)
+        {
+            var dates = _dbSet.Where(x=> x.Key.Item1 >= startTime && x.Key.Item2<= endTime && x.Value == false )
+                .Select(x => (x.Key.Item1, x.Key.Item2)).ToList();
+            
+            return dates.Any() ? dates : Enumerable.Empty<(LocalDateTime, LocalDateTime)>();
+        }
     }
 }

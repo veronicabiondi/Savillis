@@ -8,16 +8,18 @@ namespace Savillis.Domain.Services
     //We assume that TryAdd is thread-safe. It is possible for one thread to retrieve a value and another to immediately update..We can use locks for this but the test will never finish :)))))
     public class MockPropertyCalendarService : IPropertyCalendarService
     {
-        private static ConcurrentDictionary<(LocalDateTime, LocalDateTime),bool> AvailableDates =
-            new ConcurrentDictionary<(LocalDateTime, LocalDateTime), bool>
-            {
-              //  {KeyValuePair.Create((new LocalDateTime(2022, 10, 1, 13, 1), new LocalDateTime(2022, 10, 1, 15, 1)), false)
+        private static readonly ConcurrentDictionary<(LocalDateTime, LocalDateTime), bool> _dbSet = new();
 
-            };
-            
-        public Guid CreateAppointment(string agentId, LocalDateTime startTime, LocalDateTime endTime)
+        public MockPropertyCalendarService()
         {
-            var result = AvailableDates.TryAdd((startTime, endTime), true);
+            _dbSet.TryAdd((new LocalDateTime(2022, 10, 3, 8, 0), new LocalDateTime(2022, 10, 3, 10, 0)), false);
+            _dbSet.TryAdd((new LocalDateTime(2022, 10, 3, 12, 4), new LocalDateTime(2022, 10, 3, 14, 0)), false);
+            _dbSet.TryAdd((new LocalDateTime(2022, 10, 3, 16, 4), new LocalDateTime(2022, 10, 3, 18, 0)), false);
+        }
+
+        public Guid CreateAppointment(string propertyId, LocalDateTime startTime, LocalDateTime endTime)
+        {
+            var result = _dbSet.TryAdd((startTime, endTime), true);
             //Assume Successful creation
             return result ? Guid.NewGuid() : throw new DomainException("Failed To Create an appointment");
         }
@@ -25,7 +27,7 @@ namespace Savillis.Domain.Services
         //Return available appointments for that date
         public IEnumerable<(LocalDateTime, LocalDateTime)> GetAppointments(string propertyId, LocalDate day)
         {
-            var dates = AvailableDates.Where(x => x.Key.Item1.Date == day && x.Value == false)
+            var dates = _dbSet.Where(x => x.Key.Item1.Date == day && x.Value == false)
                 .Select(x => (x.Key.Item1, x.Key.Item2));
 
             return dates.Any() ? dates : Enumerable.Empty<(LocalDateTime, LocalDateTime)>();
