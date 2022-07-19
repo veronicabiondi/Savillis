@@ -1,14 +1,11 @@
-using System;
 using Eventuous;
 using Eventuous.AspNetCore;
-using Eventuous.Diagnostics;
 using Eventuous.Diagnostics.Logging;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
 using Savillis.Domain.Bookings.Events;
+using Savillis.Domain.DomainService;
+using Savillis.Domain.Services;
 using Savillis.WebAPI;
 using Serilog;
 using Serilog.Events;
@@ -17,9 +14,6 @@ TypeMap.RegisterKnownEventTypes(typeof(BookingEvents.V1.BookingSubmitted).Assemb
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Debug()
-    .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-    .MinimumLevel.Override("Grpc", LogEventLevel.Information)
-    .MinimumLevel.Override("Grpc.Net.Client.Internal.GrpcCall", LogEventLevel.Error)
     .MinimumLevel.Override("Microsoft.AspNetCore.Mvc.Infrastructure", LogEventLevel.Warning)
     .Enrich.FromLogContext()
     .WriteTo.Console()
@@ -35,6 +29,10 @@ builder.Services
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddEventuous(builder.Configuration);
+
+builder.Services.AddSingleton<IAgentCalendarService, MockAgentCalendarService>();
+builder.Services.AddSingleton<IPropertyCalendarService, MockPropertyCalendarService>();
+builder.Services.AddSingleton<IDomainService, DomainService>();
 
 var app = builder.Build();
 
