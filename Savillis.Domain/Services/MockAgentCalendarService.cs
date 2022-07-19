@@ -10,7 +10,7 @@ namespace Savillis.Domain.Services
             {
                 (new LocalDateTime(2022, 10, 1, 0, 1), new LocalDateTime(2022, 10, 1, 12, 1), "Agent-A"),
                 (new LocalDateTime(2022, 10, 1, 13, 1), new LocalDateTime(2022, 10, 1, 15, 1), "Agent-B"),
-                (new LocalDateTime(2022, 10, 1, 16, 1), new LocalDateTime(2022, 10, 24, 24, 1), "Agent-C")
+                (new LocalDateTime(2022, 10, 1, 16, 1), new LocalDateTime(2022, 10, 24, 23, 1), "Agent-C")
             };
             
         public Guid CreateAppointment(string agentId, LocalDateTime startTime, LocalDateTime endTime)

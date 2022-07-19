@@ -23,8 +23,8 @@ namespace Savillis.Domain.Bookings.Events {
                 public string SubmittedBy { get; init; }
                 public LocalDateTime SubmittedAt { get; init; }
             }
-
-            public record BookingDenied(string PaymentId, string Reason, LocalDateTime DeniedAt);
+            
+            public record BookingDenied(string BookingId, string Reason, LocalDateTime DeniedAt, string UserEmail);
         }
     }
 }

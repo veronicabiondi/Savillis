@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using NodaTime;
 using Savillis.Domain.Bookings;
 using Savillis.Domain.Services;
@@ -9,7 +7,7 @@ namespace Savillis.Domain.DomainService
 {
     public interface IDomainService
     {
-        BaseResult<Guid> TryBookOnPropertyCalendar(string propertyId, ViewingTimeSlot timeslot, LocalDateTime end);
+        BaseResult<Guid> TryBookOnPropertyCalendar(string propertyId, ViewingTimeSlot timeslot, LocalDate end);
         BaseResult<Guid> TryBookOnAgentsCalendar(string agentId, ViewingTimeSlot timeslot);
     }
 
@@ -25,7 +23,7 @@ namespace Savillis.Domain.DomainService
         }
 
         //We could also merge the below methods in one - TryBookOnCalendars, so that the Booking Aggregate Method does not need more than one Func domain service
-        public BaseResult<Guid> TryBookOnPropertyCalendar(string propertyId, ViewingTimeSlot timeslot, LocalDateTime day)
+        public BaseResult<Guid> TryBookOnPropertyCalendar(string propertyId, ViewingTimeSlot timeslot, LocalDate day)
         {
             Guid? guid = new Guid();
             try
@@ -68,7 +66,6 @@ namespace Savillis.Domain.DomainService
             {
                 return new FailureResult<Guid>(new ErrorMessage());
             }
-           
         }
     }
 }

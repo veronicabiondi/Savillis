@@ -22,8 +22,13 @@ namespace Savillis.Domain.Services
             return result ? Guid.NewGuid() : throw new DomainException("Failed To Create an appointment");
         }
 
-        //We can use any of LocalDateTime dates stored in the Key's tuple structure
-        public IEnumerable<(LocalDateTime, LocalDateTime)> GetAppointments(string propertyId, LocalDateTime day) => 
-            AvailableDates.Where(x=> x.Key.Item1.Date == day.Date && x.Value == false).Select(x => (x.Key.Item1, x.Key.Item2));
+        //Return available appointments for that date
+        public IEnumerable<(LocalDateTime, LocalDateTime)> GetAppointments(string propertyId, LocalDate day)
+        {
+            var dates = AvailableDates.Where(x => x.Key.Item1.Date == day && x.Value == false)
+                .Select(x => (x.Key.Item1, x.Key.Item2));
+
+            return dates.Any() ? dates : Enumerable.Empty<(LocalDateTime, LocalDateTime)>();
+        }
     }
 }

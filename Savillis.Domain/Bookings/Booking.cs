@@ -1,5 +1,3 @@
-using System;
-using System.Security.Cryptography;
 using Eventuous;
 using NodaTime;
 using Savillis.Domain.Bookings.Events;
@@ -10,8 +8,8 @@ namespace Savillis.Domain.Bookings
     public class Booking : Aggregate<BookingState, BookingId> {
 
         public void BookAppointment(BookingId bookingId, string  agentId, string propertyId, ViewingTimeSlot timeslot, 
-            Func<string,ViewingTimeSlot,LocalDateTime,BaseResult> propertyFunc, 
-            Func<string,ViewingTimeSlot,BaseResult> agentFunc, LocalDateTime day)
+            Func<string,ViewingTimeSlot,LocalDate,BaseResult> propertyFunc, 
+            Func<string,ViewingTimeSlot,BaseResult> agentFunc, LocalDate day)
         {
             //Inspect Result
             var propertyServiceResult = propertyFunc(propertyId, timeslot, day);
@@ -22,6 +20,8 @@ namespace Savillis.Domain.Bookings
             
             if (!agentServiceResult.IsSuccessful)
                 throw new DomainException(agentServiceResult.Error.Message);
+            
+            //If its 404 then we can raise BookingDenied event, for which we can subscribe to send our email notifications
 
             var period = timeslot.ToHour - timeslot.FromHour;
             

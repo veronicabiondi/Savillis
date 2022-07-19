@@ -16,7 +16,7 @@ namespace Savillis.WebAPI.Application
                     new ViewingTimeSlot(LocalDateTime.FromDateTime(cmd.From), LocalDateTime.FromDateTime(cmd.To)), 
                     service.TryBookOnPropertyCalendar,
                     service.TryBookOnAgentsCalendar,
-                    LocalDateTime.FromDateTime(cmd.Day)
+                    LocalDate.FromDateTime(cmd.Day)
                 )
             );
         }
