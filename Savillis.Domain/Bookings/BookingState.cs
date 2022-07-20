@@ -16,6 +16,7 @@ namespace Savillis.Domain.Bookings
                 Id = new BookingId(e.BookingId),
                 AgentId = e.AgentId,
                 PropertyId = e.PropertyId,
+                
             };
     }
 }

@@ -28,10 +28,10 @@ namespace Savillis.Domain.Bookings
                 throw new DomainException("Booking can't be longer than 2 hours");
 
             if(timeslot.FromHour.TimeOfDay.Hour < 8)
-                throw new DomainException("Booking can't be longer than 2 hours");
+                throw new DomainException("Booking can't be earlier than 08:00");
             
             if(timeslot.ToHour.TimeOfDay.Hour > 18)
-                throw new DomainException("Booking can't be longer than 2 hours");
+                throw new DomainException("Booking can't be made after 18:00");
             
             Apply(
                 new BookingEvents.V1.BookingSubmitted() {
