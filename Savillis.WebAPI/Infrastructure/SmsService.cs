@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 namespace Savillis.WebAPI.Infrastructure
 {
     public interface IEmailService

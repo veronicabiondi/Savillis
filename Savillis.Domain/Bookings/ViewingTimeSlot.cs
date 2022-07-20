@@ -8,15 +8,11 @@ namespace Savillis.Domain.Bookings
         public LocalDateTime FromHour { get; }
         public LocalDateTime ToHour { get; }
 
-        public ViewingTimeSlot()
-        {
-        }
-
         public ViewingTimeSlot(LocalDateTime fromHour, LocalDateTime toHour)
         {
-            if (FromHour.Date > toHour.Date) throw new DomainException("Check in date must be before check out date");
+            if (fromHour.Date > toHour.Date) throw new DomainException("Start date must be before end date");
 
-            (FromHour, toHour) = (FromHour, toHour);
+            (FromHour, ToHour) = (fromHour, toHour);
         }
     }
 }

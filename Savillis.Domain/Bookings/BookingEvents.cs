@@ -1,4 +1,3 @@
-using System;
 using NodaTime;
 
 namespace Savillis.Domain.Bookings.Events {

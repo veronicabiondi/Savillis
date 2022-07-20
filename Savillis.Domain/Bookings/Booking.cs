@@ -13,11 +13,10 @@ namespace Savillis.Domain.Bookings
         {
             //Inspect Result
             var propertyServiceResult = propertyFunc(propertyId, timeslot, day);
-            var agentServiceResult = agentFunc(agentId, timeslot);
-
             if (!propertyServiceResult.IsSuccessful)
                 throw new DomainException(propertyServiceResult.Error.Message);
             
+            var agentServiceResult = agentFunc(agentId, timeslot);
             if (!agentServiceResult.IsSuccessful)
                 throw new DomainException(agentServiceResult.Error.Message);
             

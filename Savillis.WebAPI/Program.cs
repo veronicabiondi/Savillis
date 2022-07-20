@@ -1,6 +1,7 @@
 using Eventuous;
 using Eventuous.AspNetCore;
 using Eventuous.Diagnostics.Logging;
+using Microsoft.OpenApi.Models;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
 using Savillis.Domain.Bookings.Events;
@@ -34,12 +35,16 @@ builder.Services.AddSingleton<IAgentCalendarService, MockAgentCalendarService>()
 builder.Services.AddSingleton<IPropertyCalendarService, MockPropertyCalendarService>();
 builder.Services.AddSingleton<IDomainService, DomainService>();
 
+
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
 app.AddEventuousLogs();
 app.UseSwagger().UseSwaggerUI();
 app.MapControllers();
+
+app.UseSwagger();
+//app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PaymentSystems.WebAPI v1"));
 
 var factory  = app.Services.GetRequiredService<ILoggerFactory>();
 var listener = new LoggingEventListener(factory, "OpenTelemetry");

@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using Eventuous.Subscriptions;
 using Eventuous.Subscriptions.Context;
 
