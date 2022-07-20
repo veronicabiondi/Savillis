@@ -44,7 +44,6 @@ app.UseSwagger().UseSwaggerUI();
 app.MapControllers();
 
 app.UseSwagger();
-//app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PaymentSystems.WebAPI v1"));
 
 var factory  = app.Services.GetRequiredService<ILoggerFactory>();
 var listener = new LoggingEventListener(factory, "OpenTelemetry");
