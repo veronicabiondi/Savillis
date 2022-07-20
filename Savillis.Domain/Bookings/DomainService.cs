@@ -28,11 +28,12 @@ namespace Savillis.Domain.DomainService
             Guid? guid = new Guid();
             try
             {
+                /*
                 var availableAppointments = _propertyCalendar.GetAppointments(propertyId, day);
                 
                 if (!availableAppointments.Any())
                     return new FailureResult<Guid>(new ErrorMessage(){ Message = "No Available appointments"});
-                    
+                 */   
                 //TODO Check to see if your appointment  falls within the available appointments
                 guid = _propertyCalendar.CreateAppointment(propertyId, timeslot.FromHour, timeslot.ToHour);
                 
@@ -53,11 +54,12 @@ namespace Savillis.Domain.DomainService
             Guid? guid = new Guid();
             try
             {
+                /*
                 var availableAppointments = _agentCalendar.GetAppointments(agentId, timeslot.FromHour, timeslot.ToHour);
                 
                 if (!availableAppointments.Any())
                     return new FailureResult<Guid>(new ErrorMessage(){ Message = "No Available appointments"});
-                
+                */
                 guid = _agentCalendar.CreateAppointment(agentId, timeslot.FromHour, timeslot.ToHour);
                 
                 return new SuccessfulResult<Guid>(guid.GetValueOrDefault());

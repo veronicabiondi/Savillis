@@ -1,8 +1,10 @@
+using Eventuous;
 using NodaTime;
 
 namespace Savillis.Domain.Bookings.Events {
     public static class BookingEvents {
         public static class V1 {
+            [EventType("V1.BookingSubmitted")]
             public class BookingSubmitted {
                 public string BookingId { get; set; }
                 public string AgentId { get; set; } 
@@ -13,6 +15,7 @@ namespace Savillis.Domain.Bookings.Events {
                 public LocalDateTime SubmittedAt { get; init; }
             }
             
+            [EventType("V1.BookingCancelled")]
             public class BookingCancelled {
                 public string BookingId { get; set; }
                 public string AgentId { get; set; } 
