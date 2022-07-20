@@ -11,6 +11,7 @@ namespace Savillis.Domain.Bookings
             Func<string,ViewingTimeSlot,LocalDate,BaseResult> propertyFunc, 
             Func<string,ViewingTimeSlot,BaseResult> agentFunc, LocalDate day)
         {
+            EnsureDoesntExist();
             //Inspect Result
             var propertyServiceResult = propertyFunc(propertyId, timeslot, day);
             if (!propertyServiceResult.IsSuccessful)

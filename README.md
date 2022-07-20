@@ -44,3 +44,5 @@ Response
 }`
 
 We can monitor events in http://localhost:2113/web/index.html#/dashboard
+
+Click on the 'Stream Browser' and we should be able to monitor the events that have been submitted.
