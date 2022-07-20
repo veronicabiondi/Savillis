@@ -10,7 +10,7 @@ namespace Savillis.Domain.Bookings
 
         public ViewingTimeSlot(LocalDateTime fromHour, LocalDateTime toHour)
         {
-            if (fromHour.Date > toHour.Date) throw new DomainException("Start date must be before end date");
+            if (fromHour > toHour) throw new DomainException("Start date must be before end date");
 
             (FromHour, ToHour) = (fromHour, toHour);
         }
