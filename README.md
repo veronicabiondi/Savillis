@@ -6,6 +6,10 @@ In the solution's directory, please run  docker-compose -up
 
 The API is listening in http://localhost:5051/swagger/index.html
 
+We can monitor events in http://localhost:2113/web/index.html#/dashboard
+
+Click on the 'Stream Browser' and we should be able to monitor the events that have been submitted.
+
 i.e Successful request
 -----------------------------------
 `{
@@ -63,10 +67,6 @@ Response
 "success": false,
 "changes": null
 }`
-
-We can monitor events in http://localhost:2113/web/index.html#/dashboard
-
-Click on the 'Stream Browser' and we should be able to monitor the events that have been submitted.
 
 Send Grid
 ----------
