@@ -90,3 +90,23 @@ Application services vs Domain Services
 There is a fine line between them. The idea is that the requests will be forwarded to the domain model.
 We use Func delegates as we don't want to pollute the aggregate with external dependencies. Domain service will verify if those commands can be
 processed or else throw a domain exception.
+
+Projections Using MongoDB
+-------------------------
+
+At the moment the Query loads our bookings from the aggregate store. Although, there is no rule that prohibits Queries against the streams,very often
+we prefer to send projections to the reporting models. We could point our query to the MongoDB.
+
+As the events are emitted from the aggergates, we project them via the subscription services and we store them in MongoDB.
+This is happening regardless as we have already subscribed al all streams 
+
+      services.AddSubscription<AllStreamSubscription, AllStreamSubscriptionOptions>(
+                "BookingsProjections",
+                builder => builder
+                    .Configure(cfg => cfg.ConcurrencyLimit = 2)
+                    .UseCheckpointStore<MongoCheckpointStore>()
+                    .AddEventHandler<BookingStateProjection>()
+                    .WithPartitioningByStream(2));
+
+Docker compose has also created a mongo Instance. To visualize it, you can download Mongo DB Compass and use the following connection string:
+mongodb://mongoadmin:secret@localhost:27017

@@ -1,6 +1,9 @@
 using Eventuous;
 using Eventuous.AspNetCore;
 using Eventuous.Diagnostics.Logging;
+using Eventuous.EventStore.Subscriptions;
+using Eventuous.Projections.MongoDB;
+using Eventuous.Subscriptions.Registrations;
 using Microsoft.OpenApi.Models;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
@@ -8,6 +11,8 @@ using Savillis.Domain.Bookings.Events;
 using Savillis.Domain.DomainService;
 using Savillis.Domain.Services;
 using Savillis.WebAPI;
+using Savillis.WebAPI.Application.Queries;
+using Savillis.WebAPI.Infrastructure;
 using Serilog;
 using Serilog.Events;
 
@@ -34,6 +39,7 @@ builder.Services.AddEventuous(builder.Configuration);
 builder.Services.AddSingleton<IAgentCalendarService, MockAgentCalendarService>();
 builder.Services.AddSingleton<IPropertyCalendarService, MockPropertyCalendarService>();
 builder.Services.AddSingleton<IDomainService, DomainService>();
+
 
 
 var app = builder.Build();
