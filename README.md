@@ -49,12 +49,11 @@ Response
 "eventType": "V1.BookingSubmitted"
 }
 ]
-}
-```
+}```
 
  A request that fails the 2 hour Validation Rule
 
-```
+```json
 {
 "bookingId": "c7c80b34-5d1f-4c9b-adaa-11a7b0a25d1d",
 "propertyId": "c3c80b34-5d1f-4c9b-adaa-11a7b0a25d1e",
@@ -62,20 +61,18 @@ Response
 "from": "2022-07-19T19:57:19.906Z",
 "to": "2022-07-19T21:57:19.906Z",
 "day": "2022-07-19T23:57:19.906Z"
-}
-```
+}```
 
 Response
 
-```
+```json
 {
 "errorMessage": "Booking can't be made after 18:00",
 "message": "Error handling command BookAppointment",
 "state": null,
 "success": false,
 "changes": null
-}
-```
+}```
 
 Send Grid
 ----------
