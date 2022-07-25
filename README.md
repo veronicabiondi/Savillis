@@ -22,7 +22,8 @@ i.e Successful request
 "from": "2022-07-19T12:57:19.906Z",
 "to": "2022-07-19T14:57:19.906Z",
 "day": "2022-07-19T23:57:19.906Z"
-}```
+}
+```
 
 Response
 
@@ -48,8 +49,7 @@ Response
 },
 "eventType": "V1.BookingSubmitted"
 }
-]
-}```
+]}```
 
  A request that fails the 2 hour Validation Rule
 
