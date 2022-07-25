@@ -14,7 +14,7 @@ Tip: Guid Generator https://www.guidgenerator.com/online-guid-generator.aspx
 
 i.e Successful request
 -----------------------------------
-`{
+```{
 "bookingId": "c8c80b34-5d1f-4c9b-adaa-11a7b0a25d1c",
 "propertyId": "c8c80b34-5d1f-4c9b-adaa-11a7b0a25d1d",
 "agentId": "ef3ad68f-b568-41fc-8813-b958a114bffb",
@@ -47,7 +47,7 @@ Response
 "eventType": "V1.BookingSubmitted"
 }
 ]
-}`
+}```
 
 A request that fails the 2 hour Validation Rule
 
