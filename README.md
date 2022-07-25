@@ -27,7 +27,7 @@ i.e Successful request
 
 Response
 
-```
+```json
 { 
  "state":
  {
@@ -49,7 +49,8 @@ Response
 },
 "eventType": "V1.BookingSubmitted"
 }
-]}```
+]}
+```
 
  A request that fails the 2 hour Validation Rule
 
@@ -61,7 +62,8 @@ Response
 "from": "2022-07-19T19:57:19.906Z",
 "to": "2022-07-19T21:57:19.906Z",
 "day": "2022-07-19T23:57:19.906Z"
-}```
+}
+```
 
 Response
 
@@ -72,7 +74,8 @@ Response
 "state": null,
 "success": false,
 "changes": null
-}```
+}
+```
 
 Send Grid
 ----------
